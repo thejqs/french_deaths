@@ -11,7 +11,16 @@ def template_view(request):
 
     deaths = Morir.objects.all()
 
-    context['deaths'] = deaths
+    deaths_dict = {}
+
+    for death in deaths:
+        if death.sex == "Males":
+            death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.year]}
+        if death.sex == "Females":
+            death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.year]}
+        deaths_dict.update(death.cause_of_death)
+
+    context['deaths'] = deaths_dict
 
     return render(request, 'template_view.html', context)
 

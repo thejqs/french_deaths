@@ -7,15 +7,21 @@
 
         <div class="row">
             <div class="col-md-12">
-                {% for death in deaths | slice:":5" %}
-                    {% if forloop counter <= 5 %}
+                
+                {% for k, v in deaths.items %}
 
-                        {{ death }}
+                            <h4>{{ k }}</h4>
+                            {{ v.year}}
+                            {{ v.number_of_deaths }}
+                            {{ v.sex }}
+                                    {{ death.year }} {{ death.number_of_deaths }} {{ death.sex }} 
+                            </br>
 
-                    {% endif %}
+
 
                 {% endfor %}
 
+{% endblock %}
 
             </div> 
         </div>
