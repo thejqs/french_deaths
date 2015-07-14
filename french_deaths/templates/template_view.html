@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                {% for death in deaths | slice:":5" %}
+                    {% if forloop counter <= 5 %}
+
+                        {{ death }}
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div> 
+        </div>
+    </div>

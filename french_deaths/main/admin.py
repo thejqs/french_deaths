@@ -5,9 +5,9 @@ from main.models import Morir
 # class MorirInline(admin.TabularInline):
 #     model = Morir
 
+
 class MorirAdmin(admin.ModelAdmin):
-    list_display = ("cause_of_death", "year", "country", "sex", "number_of_deaths")
-    search_fields = ["year", "sex", "cause of death"]
-    # inlines = [MorirInline]
+    list_display = ("cause_of_death", "sex", "number_of_deaths", "year")
+    
 
 admin.site.register(Morir, MorirAdmin)

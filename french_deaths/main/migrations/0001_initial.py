@@ -11,11 +11,10 @@ class Migration(SchemaMigration):
         # Adding model 'Morir'
         db.create_table(u'main_morir', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('year', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-            ('country', self.gf('django.db.models.fields.CharField')(max_length=7)),
-            ('sex', self.gf('django.db.models.fields.CharField')(max_length=8)),
-            ('cause_of_death', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('number_of_deaths', self.gf('django.db.models.fields.IntegerField')(max_length=9)),
+            ('number_of_deaths', self.gf('django.db.models.fields.IntegerField')(max_length=15, null=True)),
+            ('year', self.gf('django.db.models.fields.IntegerField')(max_length=4, null=True)),
+            ('sex', self.gf('django.db.models.fields.CharField')(max_length=8, null=True)),
+            ('cause_of_death', self.gf('django.db.models.fields.CharField')(max_length=200, null=True)),
         ))
         db.send_create_signal(u'main', ['Morir'])
 
@@ -28,12 +27,11 @@ class Migration(SchemaMigration):
     models = {
         u'main.morir': {
             'Meta': {'object_name': 'Morir'},
-            'cause_of_death': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'country': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
+            'cause_of_death': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'number_of_deaths': ('django.db.models.fields.IntegerField', [], {'max_length': '9'}),
-            'sex': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
-            'year': ('django.db.models.fields.IntegerField', [], {'max_length': '4'})
+            'number_of_deaths': ('django.db.models.fields.IntegerField', [], {'max_length': '15', 'null': 'True'}),
+            'sex': ('django.db.models.fields.CharField', [], {'max_length': '8', 'null': 'True'}),
+            'year': ('django.db.models.fields.IntegerField', [], {'max_length': '4', 'null': 'True'})
         }
     }
 

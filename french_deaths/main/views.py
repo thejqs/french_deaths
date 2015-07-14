@@ -5,6 +5,19 @@ from main.models import Morir
 
 # Create your views here.
 
+def template_view(request):
+
+    context = {}
+
+    deaths = Morir.objects.all()
+
+    context['deaths'] = deaths
+
+    return render(request, 'template_view.html', context)
+
+
+
+
 def first_view(request):
     deaths = Morir.objects.all()
 
