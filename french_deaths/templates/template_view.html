@@ -7,22 +7,32 @@
 
         <div class="row">
             <div class="col-md-12">
-                
-                {% for k, v in deaths.items %}
-
-                            <h4>{{ k }}</h4>
-                            {{ v.year}}
-                            {{ v.number_of_deaths }}
-                            {{ v.sex }}
-                                    {{ death.year }} {{ death.number_of_deaths }} {{ death.sex }} 
-                            </br>
 
 
+                {% for cause, number in death_types.items %}
 
+                    <h4><b>{{ cause }}</b></h4>
+                    </br>
+
+                    {% for digit in number %}
+                        
+                        {{ digit.year }} ::
+
+                        <b>{{ digit.number_of_deaths }}</b> ::
+
+                        {{ digit.sex }}
+                        </br>
+
+
+                    {% endfor %}
+
+
+
+                    
                 {% endfor %}
-
-{% endblock %}
-
             </div> 
         </div>
     </div>
+{% endblock %}
+
+           

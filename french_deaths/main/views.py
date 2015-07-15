@@ -1,26 +1,59 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum
-from main.models import Morir
+from main.models import Morir, MorirCause
 
 # Create your views here.
 
 def template_view(request):
 
     context = {}
-
-    deaths = Morir.objects.all()
-
     deaths_dict = {}
 
-    for death in deaths:
-        if death.sex == "Males":
-            death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.year]}
-        if death.sex == "Females":
-            death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.year]}
-        deaths_dict.update(death.cause_of_death)
+    death_types = MorirCause.objects.all()
+    # all_deaths = Morir.objects.all().order_by('year').reverse()
 
-    context['deaths'] = deaths_dict
+    for death_type in death_types:
+        all_deaths = death_type.morir_set.all() 
+        
+        death_type.cause = {death_type.cause: all_deaths}
+
+        deaths_dict.update(death_type.cause)
+
+    context['death_types'] = deaths_dict
+
+        # for death in all_deaths:
+        #     if death_type.id == death.cause_id:
+        #         deathcause = [death.year, death.number_of_deaths, death.sex]
+    # print death_type, deathcause
+
+    return render(request, 'template_view.html', context)
+
+
+
+
+        # if death.sex == 'Males':
+        #     death_types.cause = {all_deaths.cause: [death.year, death.number_of_deaths, death.sex]}
+        # deaths_dict.update(death.cause)
+        # if death.sex == 'Females':
+        #     death_types.cause = {all_deaths.cause: [death.year, death.number_of_deaths, death.sex]}
+        # deaths_dict.append(death.cause)
+
+
+    context['all_deaths'] = death_types
+
+    # deaths = Morir.objects.all()
+
+    # deaths_dict = {}
+
+    # for death in deaths:
+    #     if death.sex == "Males":
+    #         death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.sex]}
+    #     if death.sex == "Females":
+    #         death.cause_of_death = {death.cause_of_death: [death.year, death.number_of_deaths, death.sex]}
+    #     deaths_dict.update(death.cause_of_death)
+
+    # context['deaths'] = deaths_dict
 
     return render(request, 'template_view.html', context)
 
@@ -37,7 +70,7 @@ def first_view(request):
     #     for number in numbers:
         the_year = death.year
         the_number = death.number_of_deaths
-        the_cause = death.cause_of_death
+        the_cause = death.cause
         the_sex = death.sex
 
         text_block = """

@@ -10,7 +10,7 @@ sys.path.append("..")
 
 from django.db.models import Q
 
-from main.models import Morir
+from main.models import Morir, MorirCause
 
 # deaths = Morir.objects.all()
 
@@ -27,18 +27,19 @@ csv_file = open(french_deaths_csv, 'r')
 
 reader = csv.DictReader(csv_file)
 
-Morir.objects.all().delete()
+# Morir.objects.all().delete()
+# MorirCause.objects.all().delete()
 
 for row in reader:
+    new_cause, created = MorirCause.objects.get_or_create(cause=row["ICD10"])
+    new_cause.save()
 
-    new_death, created = Morir.objects.get_or_create(
-        cause_of_death=row["ICD10"],
+    new_death, created=Morir.objects.get_or_create(
+        number_of_deaths=row["Value"].replace(':', '0').replace(' ', ''),
         year=row["TIME"],
         sex=row["SEX"]
     )
-
-    new_death.number_of_deaths = row["Value"].replace(':', '0').replace(' ', '')
-  
+    new_death.cause = new_cause
     new_death.save()
 
 
