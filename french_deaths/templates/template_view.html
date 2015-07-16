@@ -26,10 +26,16 @@
                                                                                 {{ digit.sex }}  
                                                                                 </br>
 
+
                                                                         {% endif %}
 
 
                                                             {% endfor %} 
+                                                                                        Total deaths of females in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_females }}</b>
+                                                                                        </br>
+
+
+
                                    </div>
 
 
@@ -46,15 +52,23 @@
                                                                     <b>{{ digit.number_of_deaths }}</b> ::
 
                                                                     {{ digit.sex }}  
+                                                                    </br>
 
-                                                        </br>
+
+
                                                        {% endif %}
 
+
+
                                              {% endfor %} 
+
+                                                                                        Total deaths of males in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_males }}</b>
+                                                                                        </br>
 
 
                     
             </div> 
+                </br>
                 Total deaths in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total }}</b>
                     
                 {% endfor %}

@@ -15,11 +15,16 @@ def template_view(request):
 
     for death_type in death_types:
         all_deaths = death_type.morir_set.all()
-        
-            
-        all_deaths_total = death_type.morir_set.all().aggregate(Sum('number_of_deaths'))
 
-        deaths_dict[death_type.cause] = {"all_deaths": all_deaths, "death_total": all_deaths_total['number_of_deaths__sum']}
+        all_deaths_total = death_type.morir_set.all().aggregate(Sum('number_of_deaths'))
+        all_deaths_total_f = death_type.morir_set.filter(sex="Females").aggregate(Sum('number_of_deaths'))
+        all_deaths_total_m = death_type.morir_set.filter(sex="Males").aggregate(Sum('number_of_deaths'))
+
+        deaths_dict[death_type.cause] = {"all_deaths": all_deaths, 
+                                                                "death_total": all_deaths_total['number_of_deaths__sum'],
+                                                                "death_total_females": all_deaths_total_f['number_of_deaths__sum'],
+                                                                "death_total_males": all_deaths_total_m['number_of_deaths__sum']
+                                                                }
 
     context['death_types'] = deaths_dict
 
