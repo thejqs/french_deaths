@@ -10,17 +10,27 @@ def template_view(request):
     context = {}
     deaths_dict = {}
 
-    death_types = MorirCause.objects.all()
+    death_types = MorirCause.objects.all().order_by('cause')
     # all_deaths = Morir.objects.all().order_by('year').reverse()
 
     for death_type in death_types:
-        all_deaths = death_type.morir_set.all() 
+        all_deaths = death_type.morir_set.all()
         
-        death_type.cause = {death_type.cause: all_deaths}
+            
+        all_deaths_total = death_type.morir_set.all().aggregate(Sum('number_of_deaths'))
 
-        deaths_dict.update(death_type.cause)
+        deaths_dict[death_type.cause] = {"all_deaths": all_deaths, "death_total": all_deaths_total['number_of_deaths__sum']}
 
     context['death_types'] = deaths_dict
+
+
+
+
+        # import pdb; pdb.set_trace()
+        # total_numbers = Morir.total_numbers()
+        # death_type.cause = {death_type.cause: all_deaths}
+        # deaths_dict.update(death_type.cause)
+
 
         # for death in all_deaths:
         #     if death_type.id == death.cause_id:

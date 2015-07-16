@@ -3,34 +3,63 @@
 
 {% block body %}
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
+        <div class="container">
 
 
-                {% for cause, number in death_types.items %}
+                                            {% for cause, number in death_types.items %}
+                                                    <div class="row">
+            
+                                    
+                                                <h3><b>{{ cause }}</h3></b>
+                                                    </br> 
 
-                    <h4><b>{{ cause }}</b></h4>
-                    </br>
-
-                    {% for digit in number %}
+                                                    <div class="col-md-6">
+  
+                                                                 {% for digit in number.all_deaths %}
                         
-                        {{ digit.year }} ::
+                                                                        {%  if digit.sex == "Females" %}
 
-                        <b>{{ digit.number_of_deaths }}</b> ::
+                                                                                {{ digit.year }} ::
 
-                        {{ digit.sex }}
-                        </br>
+                                                                                <b>{{ digit.number_of_deaths }}</b> ::
+
+                                                                                {{ digit.sex }}  
+                                                                                </br>
+
+                                                                        {% endif %}
 
 
-                    {% endfor %}
+                                                            {% endfor %} 
+                                   </div>
 
+
+
+                       <div class ="col-md-6">
+                                         
+
+                                            {% for digit in number.all_deaths %}
+                        
+                                                        {% if digit.sex == "Males" %}
+
+                                                                    {{ digit.year }} ::
+            
+                                                                    <b>{{ digit.number_of_deaths }}</b> ::
+
+                                                                    {{ digit.sex }}  
+
+                                                        </br>
+                                                       {% endif %}
+
+                                             {% endfor %} 
 
 
                     
-                {% endfor %}
             </div> 
+                Total deaths in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total }}</b>
+                    
+                {% endfor %}
+
+
         </div>
     </div>
 {% endblock %}

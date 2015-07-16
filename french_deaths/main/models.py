@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 # Create your models here.
 
@@ -12,6 +13,10 @@ class Morir(models.Model):
     year = models.IntegerField(max_length=4, null=True)
     sex = models.CharField(max_length=8, choices=SEX_CHOICES, null=True)
     cause = models.ForeignKey('main.MorirCause', null=True)
+
+    # def total_numbers():
+    #     total_numbers = self.aggregate(Sum('number_of_deaths'))
+    #     return total_numbers
 
     def __unicode__(self):
         return self.sex
