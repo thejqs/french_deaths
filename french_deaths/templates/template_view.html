@@ -1,23 +1,15 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block body %}
-
         <div class="container">
-
-
-                                            {% for cause, number in death_types.items %}
-                                                    <div class="row">
-            
-                                    
-                                                <h3><b>{{ cause }}</h3></b>
-                                                    </br> 
-
-                                                    <div class="col-md-6">
-  
-                                                                 {% for digit in number.all_deaths %}
-                        
-                                                                        {%  if digit.sex == "Females" %}
+            <div class="row">
+                    {% block body %}
+                                {% for cause, number in death_types.items %}
+                                                    <h3><b>{{ cause }}</b></h3>
+                                                            <div class="col-md-6">
+                                                                </br> 
+                                                                    {% for digit in number.all_deaths %}                                            
+                                                                           {%  if digit.sex == "Females" %}
 
                                                                                 {{ digit.year }} ::
 
@@ -26,56 +18,43 @@
                                                                                 {{ digit.sex }}  
                                                                                 </br>
 
+                                                                            {% endif %}
 
-                                                                        {% endif %}
+                                                                   {% endfor %} 
+                                                                    Total deaths of females in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_females }}</b>
+                                                            </div>
+                                            
 
-
-                                                            {% endfor %} 
-                                                                                        Total deaths of females in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_females }}</b>
-                                                                                        </br>
-
-
-
-                                   </div>
-
-
-
-                       <div class ="col-md-6">
+                                                            <div class ="col-md-6">
                                          
-
-                                            {% for digit in number.all_deaths %}
+                                                                    {% for digit in number.all_deaths %}
                         
-                                                        {% if digit.sex == "Males" %}
+                                                                        {% if digit.sex == "Males" %}
 
-                                                                    {{ digit.year }} ::
-            
-                                                                    <b>{{ digit.number_of_deaths }}</b> ::
+                                                                            {{ digit.year }} ::
 
-                                                                    {{ digit.sex }}  
-                                                                    </br>
+                                                                            <b>{{ digit.number_of_deaths }}</b> ::
 
-
-
-                                                       {% endif %}
+                                                                            {{ digit.sex }}  
+                                                                            </br>
 
 
+                                                                       {% endif %}
 
-                                             {% endfor %} 
+                                                                 {% endfor %} 
 
-                                                                                        Total deaths of males in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_males }}</b>
-                                                                                        </br>
+                                                                           Total deaths of males in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total_males }}</b>
+                                                                          </br>
+                                                            </div> 
 
+                                                               </br>
+                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total }}</b></h4>
+                                        </div>
+                                {% endfor %}
 
-                    
-            </div> 
-                </br>
-                Total deaths in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total }}</b>
-                    
-                {% endfor %}
-
-
+            </div>
         </div>
-    </div>
-{% endblock %}
+                
+                    {% endblock %}
 
            
