@@ -1,9 +1,35 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.db.models import Sum
+
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
 from main.models import Morir, MorirCause
 
 # Create your views here.
+
+
+class CauseListView(ListView):
+    model = MorirCause
+    template_name = "cause_list.html"
+    context_object_name = "cause_list"
+
+
+class CauseDetailView(DetailView):
+    """extends this view to add cause to the Morir details"""
+    model = Morir
+    template_name = "cause_detail.html"
+    context_object_name = "death"
+
+    def get_cause_data():
+        context = super(CauseDetailView, self).get_cause_data(**kwargs)
+        context['causes'] = MorirCause.objects.all()
+        return context
+
+
 
 def template_view(request):
 
@@ -19,11 +45,19 @@ def template_view(request):
         all_deaths_total = death_type.morir_set.all().aggregate(Sum('number_of_deaths'))
         all_deaths_total_f = death_type.morir_set.filter(sex="Females").aggregate(Sum('number_of_deaths'))
         all_deaths_total_m = death_type.morir_set.filter(sex="Males").aggregate(Sum('number_of_deaths'))
+        # print type(all_deaths_total_m['number_of_deaths__sum'])
+
+        if (all_deaths_total_m['number_of_deaths__sum']) is None:
+            (all_deaths_total_m['number_of_deaths__sum']) = 0
+
+        if (all_deaths_total_f['number_of_deaths__sum']) is None:
+            (all_deaths_total_f['number_of_deaths__sum']) = 0
+
 
         deaths_dict[death_type.cause] = {"all_deaths": all_deaths, 
                                                                 "death_total": all_deaths_total['number_of_deaths__sum'],
-                                                                "death_total_females": all_deaths_total_f['number_of_deaths__sum'],
-                                                                "death_total_males": all_deaths_total_m['number_of_deaths__sum']
+                                                                "all_females": all_deaths_total_f['number_of_deaths__sum'],
+                                                                "all_males": all_deaths_total_m['number_of_deaths__sum']
                                                                 }
 
     context['death_types'] = deaths_dict

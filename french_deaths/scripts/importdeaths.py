@@ -34,7 +34,7 @@ for row in reader:
     new_cause, created = MorirCause.objects.get_or_create(cause=row["ICD10"])
     new_cause.save()
 
-    new_death, created=Morir.objects.get_or_create(
+    new_death, created = Morir.objects.get_or_create(
         number_of_deaths=row["Value"].replace(':', '0').replace(' ', ''),
         year=row["TIME"],
         sex=row["SEX"]
