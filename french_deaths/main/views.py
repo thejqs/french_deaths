@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
@@ -6,10 +7,27 @@ from django.db.models import Sum
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView
 
 from main.models import Morir, MorirCause
+from main.forms import CauseSearchForm
 
 # Create your views here.
+
+
+class CauseSearchView(FormView):
+    template_name = 'cause_search.html'
+    form_class = CauseSearchForm
+
+    def form_valid(self, form):
+        request_context = RequestContext(self.request)
+        context = {}
+
+        cause = form.cleaned_data['cause']
+
+        context['cause_list'] = MorirCause.objects.filter(cause__startswith="%s" % starts_with)
+
+        return render_to_response('cause_search.html', context, context_instance=request_context)
 
 
 class CauseListView(ListView):
@@ -29,6 +47,29 @@ class CauseDetailView(DetailView):
         context['causes'] = MorirCause.objects.all()
         return context
 
+
+def cause_search(request):
+    context = {}
+    request_context = RequestContext(request)
+    if request.method == 'POST':
+        form = CauseSearchForm(request.POST)
+        context['form'] = form
+
+        if form.is_valid():
+            cause = "%s" % form.cleaned_data['cause']
+
+            context['cause_list'] = MorirCause.objects.filter(cause__startswith=cause)
+
+            context['valid'] = "Well done. Valid choice. But everyone's still dead."
+            return render_to_response("cause_detail.html", context, context_instance=request_context)
+
+        else:
+            context['valid'] = form.errors
+
+    else: form = CauseSearchForm()
+    context['form'] = form
+
+    return render_to_response("cause_search.html", context, context_instance=request_context)
 
 
 def template_view(request):

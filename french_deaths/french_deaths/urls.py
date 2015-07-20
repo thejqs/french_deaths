@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from main.views import CauseListView, CauseDetailView
+from main.views import CauseListView, CauseDetailView, CauseSearchView, CauseSearchForm
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -11,4 +11,6 @@ urlpatterns = patterns('',
     url(r'^template_view/$', 'main.views.template_view'),
     url(r'^cause_list_view/', CauseListView.as_view()),
     url(r'^causes/(?P<pk>[0-9]+)/$', CauseDetailView.as_view()),
+    url(r'^CauseSearchView', CauseSearchView.as_view()),
+    url(r'^cause_search/$', 'main.views.cause_search'),
 )

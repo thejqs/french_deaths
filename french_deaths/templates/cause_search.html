@@ -1,0 +1,24 @@
+<form method="POST" action="/CauseSearchView/">
+
+            {% csrf_token %}
+
+{{ form.as_table }}
+
+<input type="submit" value="Go ahead. Be morbid.">
+
+</form>
+
+</br>
+</br>
+
+{{ valid }}
+
+</br>
+</br>
+
+{% for cause in cause_list  %}
+
+      <a href="/causes/( {{cause.pk}}"> {{ cause }}
+        </br>
+    
+{% endfor %}
