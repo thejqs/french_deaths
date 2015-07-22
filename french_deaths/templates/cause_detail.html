@@ -1,16 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
 
-
-<h1>{{ death.cause }}</h1>
+{% block body %}
+    
+<h1>{{ cause.cause }}</h1>
 
 <strong>Year: </strong>
     
 
-{{ death.year }}
+{{ cause.year }}
 </br>
 </br>
 
-<strong> Number of deaths: </strong>{{ death.number_of_deaths }}
+<strong> Number of deaths: </strong>{{ cause.number_of_deaths }}
 </br>
 </br>
 
-<strong>Gender: </strong>{{ death.sex }}
+<strong>Gender: </strong>{{ cause.sex }}
+</br>
+
+{% endblock %}

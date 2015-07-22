@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+import re
 
 # Create your models here.
 
@@ -33,6 +34,7 @@ class MorirCause(models.Model):
         return self.cause
 
     class Meta:
+        ordering = ['cause']
         verbose_name = 'Causes of French death'
         verbose_name_plural = 'Causes of French deaths'
 

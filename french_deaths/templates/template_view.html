@@ -1,18 +1,153 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-        <div class="container">
-            <div class="row">
+<head>
+  
+{% block head %}
+
+<div class="page-header">
+  <h1><big>French death</big>. <small>Not the plague. Just death.</small></h1>
+</div>
+
+{% endblock head %}
+
+
+  <div class="container">
                     {% block body %}
-                                {% for cause, number in death_types.items %}
-                                      {% if "All" not in cause %}
-                                                    <h3><b>{{ cause }}</b></h3>  
-                                      
-                                        </br> 
-            </div>
 
+                                <!-- amCharts javascript sources -->
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
 
-                                                            <div class="col-md-6">
+                        <!-- amCharts javascript code -->
+                        <script type="text/javascript">
+                          AmCharts.makeChart("chartdiv",
+                            {
+                              "type": "serial",
+                              "categoryField": "date",
+                              "dataDateFormat": "YYYY",
+                              "theme": "dark",
+                              "categoryAxis": {
+                                "minPeriod": "YYYY",
+                                "parseDates": true
+                              },
+                              "chartCursor": {
+                                "animationDuration": 0,
+                                "categoryBalloonDateFormat": "YYYY"
+                              },
+                              "chartScrollbar": {},
+                              "trendLines": [],
+                              "graphs": [
+                                {
+                                  "fillAlphas": 0.7,
+                                  "id": "AmGraph-1",
+                                  "lineAlpha": 0,
+                                  "title": "Men",
+                                  "valueField": "Men"
+                                },
+                                {
+                                  "fillAlphas": 0.7,
+                                  "id": "AmGraph-2",
+                                  "lineAlpha": 0,
+                                  "title": "Women",
+                                  "valueField": "Women"
+                                }
+                              ],
+                              "guides": [],
+                              "valueAxes": [
+                                {
+                                  "id": "ValueAxis-1",
+                                  "title": "Axis title"
+                                }
+                              ],
+                              "allLabels": [],
+                              "balloon": {},
+                              "legend": {},
+                              "titles": [
+                                {
+                                  "id": "Title-1",
+                                  "size": 15,
+                                  "text": "Deaths in France by gender, 2001-2008"
+                                }
+                              ],
+                              "dataProvider": [
+                                {
+                                  "date": "2001",
+                                  "Men": "277858",
+                                  "Women": "263325"
+                                },
+                                {
+                                  "date": "2002",
+                                  "Men": "278794",
+                                  "Women": "266555"
+                                },
+                                {
+                                  "date": "2003",
+                                  "Men": "284729",
+                                  "Women": "277858"
+                                },
+                                {
+                                  "date": "2004",
+                                  "Men": "268653",
+                                  "Women": "250788"
+                                },
+                                {
+                                  "date": "2005",
+                                  "Men": "276553",
+                                  "Women": "261633"
+                                },
+                                {
+                                  "date": "2006",
+                                  "Men": "271406",
+                                  "Women": "255160"
+                                },
+                                {
+                                  "date": "2007",
+                                  "Men": "273401",
+                                  "Women": "257419"
+                                },
+                                {
+                                  "date": "2008",
+                                  "Men": "277598",
+                                  "Women": "265541"
+                                }
+                              ]
+                            }
+                          );
+                          </script>
+                <div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div>
+                    </br>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                      {% for cause, number in death_types.items %}
+
+                                {% if "All" in cause %}
+                                      <h3><b>All causes of death</b></h3>
+                                          </br>
+                                                <div class="col-md-6">
+
+                                                           {% for digit in number.all_deaths %}
+                        
+                                                                     {% if digit.sex == "Males" %}
+
+                                                                        {{ digit.year }} ::
+
+                                                                       <b>{{ digit.number_of_deaths }}</b> ::
+
+                                                                       {{ digit.sex }}
+                                                                      </br>
+
+                                                                      {% endif %}
+                                                            </div><!-- end of column -->
+                                                          </div><!-- end of column-->
+                                                        {% endfor %}
+                                                                      <p>Total deaths of males in France between 2001 and 2008 from all causes were: <b>{{ number.all_males }}</b></p>
+                                                                          </br>
+                                      </div><!-- end of row -->
+
+                                                             <div class="col-md-6">
                                                                 
                                                                     {% for digit in number.all_deaths %}                                            
                                                                            {%  if digit.sex == "Females" %}
@@ -23,49 +158,34 @@
 
                                                                                 {{ digit.sex }}  
                                                                                 </br>
+                                                            
+                                                                            </div><!-- end of column -->
 
                                                                             {% endif %}
 
                                                                    {% endfor %} 
-                                                                    Total deaths of females in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.all_females }}</b>
-                                                            </div>
-                                            
 
-                                                            <div class ="col-md-6">
-                                         
-                                                                    {% for digit in number.all_deaths %}
-                        
-                                                                        {% if digit.sex == "Males" %}
+                                                                   <div class="row">
+                                                                    <p>Total deaths of females in France between 2001 and 2008 from all causes were: <b>{{ number.all_females }}</b></p>
+                                                                    </div><!-- end of row -->
 
-                                                                            {{ digit.year }} ::
-
-                                                                            <b>{{ digit.number_of_deaths }}</b> ::
-
-                                                                            {{ digit.sex }}  
-                                                                            </br>
+                                                          <div class="row">
+                                                            <div class="col-md-12">
+                                                             <h4>Total deaths in France between 2001 and 2008 from all causes were: <b>{{ number.death_total }}</b></h4>
 
 
-                                                                       {% endif %}
+                                                             </div><!-- end of column -->
+                                                        
+                                        {% endif %}
+                                        {% endfor %}
+                                        </div><!-- end of row -->
 
-                                                                 {% endfor %} 
 
-                                                                           Total deaths of males in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.all_males }}</b>
-                                                                          </br>
-                                                            </div> 
+                            </div><!-- end of container -->
 
-                                                               </br>
-                                        </div>
-                                      <div class="row">
-                                          <div class="col-md-12">
-                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause }} were: <b>{{ number.death_total }}</b></h4>
-                                          </div>
-                                      {% endif %}
-                                      </div>
-                                {% endfor %}
+        </div><!-- end of container -->
 
-            
-        </div>
                 
-                    {% endblock %}
+                  {% endblock %}
 
            

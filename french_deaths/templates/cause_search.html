@@ -1,7 +1,13 @@
-<form method="POST" action="/CauseSearchView/">
+{% extends "base.html" %}
+{% load staticfiles %}
+<div class="row">
+<div class="col-md-10">
+<form method="POST" action="/cause_search/">
 
             {% csrf_token %}
 
+{% block body %}
+    
 {{ form.as_table }}
 
 <input type="submit" value="Go ahead. Be morbid.">
@@ -16,9 +22,23 @@
 </br>
 </br>
 
-{% for cause in cause_list  %}
 
-      <a href="/causes/( {{cause.pk}}"> {{ cause }}
-        </br>
+{% for cause in cause_list %}
+<a href="/causes/{{cause.pk}}">
+{{ cause.year }}
+{{ cause.cause}}
+{{cause.sex}}
+{{ cause.number_of_deaths }}
+</a>
+</br>
     
 {% endfor %}
+
+
+
+      <a href="/cause_detail/{{ cause.pk }}"> {{ cause.name }}</a>
+        </br>
+    </div>
+    </div>
+    {% endblock %}
+

@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.db.models import Sum
 
+import re
+
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -15,19 +17,25 @@ from main.forms import CauseSearchForm
 # Create your views here.
 
 
-class CauseSearchView(FormView):
-    template_name = 'cause_search.html'
-    form_class = CauseSearchForm
+# class CauseSearchView(FormView):
+#     model = Morir
+#     template_name = 'cause_search.html'
+#     form_class = CauseSearchForm
+#     context_object_name = "death"
 
-    def form_valid(self, form):
-        request_context = RequestContext(self.request)
-        context = {}
+#     def get_cause_data():
+#         context = super(CauseDetailView, self).get_cause_data(**kwargs)
+#         context['causes'] = MorirCause.objects.all()
+#         return context
 
-        cause = form.cleaned_data['cause']
-
-        context['cause_list'] = MorirCause.objects.filter(cause__startswith="%s" % starts_with)
-
-        return render_to_response('cause_search.html', context, context_instance=request_context)
+#     def form_valid(self, form):
+#         request_context = RequestContext(self.request)
+#         context = {}
+#         cause = form.cleaned_data['cause']
+#         year = form.cleaned_data['year']
+#         context['form'] = form
+#         context['cause_list'] = MorirCause.objects.filter(cause__startswith=cause, morir__year__startswith=year)
+#         return render_to_response('cause_search.html', context, context_instance=request_context)
 
 
 class CauseListView(ListView):
@@ -40,7 +48,7 @@ class CauseDetailView(DetailView):
     """extends this view to add cause to the Morir details"""
     model = Morir
     template_name = "cause_detail.html"
-    context_object_name = "death"
+    context_object_name = "cause"
 
     def get_cause_data():
         context = super(CauseDetailView, self).get_cause_data(**kwargs)
@@ -52,22 +60,25 @@ def cause_search(request):
     context = {}
     request_context = RequestContext(request)
     if request.method == 'POST':
-        form = CauseSearchForm(request.POST)
+        form = CauseForm(request.POST)
         context['form'] = form
 
         if form.is_valid():
-            cause = "%s" % form.cleaned_data['cause']
-
-            context['cause_list'] = MorirCause.objects.filter(cause__startswith=cause)
+            cause = form.cleaned_data['cause']
+            sex = form.cleaned_data['sex']
+            year = form.cleaned_data['year']
+            context['cause_list'] = Morir.objects.filter(cause__cause__startswith=cause, year=year, sex=sex)
 
             context['valid'] = "Well done. Valid choice. But everyone's still dead."
-            return render_to_response("cause_detail.html", context, context_instance=request_context)
+            
+            return render_to_response("cause_search.html", context, context_instance=request_context)
 
         else:
             context['valid'] = form.errors
 
-    else: form = CauseSearchForm()
-    context['form'] = form
+    else:
+        form = CauseSearchForm()
+        context['form'] = form
 
     return render_to_response("cause_search.html", context, context_instance=request_context)
 
@@ -76,6 +87,39 @@ def template_view(request):
 
     context = {}
     deaths_dict = {}
+
+    death_types = MorirCause.objects.all().order_by('cause')
+    # all_deaths = Morir.objects.all().order_by('year').reverse()
+
+    for death_type in death_types:
+        all_deaths = death_type.morir_set.all()
+
+        all_deaths_total = death_type.morir_set.all().aggregate(Sum('number_of_deaths'))
+        all_deaths_total_f = death_type.morir_set.filter(sex="Females").aggregate(Sum('number_of_deaths'))
+        all_deaths_total_m = death_type.morir_set.filter(sex="Males").aggregate(Sum('number_of_deaths'))
+        # print type(all_deaths_total_m['number_of_deaths__sum'])
+
+        if (all_deaths_total_m['number_of_deaths__sum']) is None:
+            (all_deaths_total_m['number_of_deaths__sum']) = 0
+
+        if (all_deaths_total_f['number_of_deaths__sum']) is None:
+            (all_deaths_total_f['number_of_deaths__sum']) = 0
+
+
+        deaths_dict[death_type.cause] = {"all_deaths": all_deaths, 
+                                                                "death_total": all_deaths_total['number_of_deaths__sum'],
+                                                                "all_females": all_deaths_total_f['number_of_deaths__sum'],
+                                                                "all_males": all_deaths_total_m['number_of_deaths__sum']
+                                                                }
+
+    context['death_types'] = deaths_dict
+    return render(request, 'template_view.html', context)
+
+
+def all_deaths_view(request):
+
+    context = {}
+    deaths_dict = {}    
 
     death_types = MorirCause.objects.all().order_by('cause')
     # all_deaths = Morir.objects.all().order_by('year').reverse()
@@ -117,7 +161,7 @@ def template_view(request):
         #         deathcause = [death.year, death.number_of_deaths, death.sex]
     # print death_type, deathcause
 
-    return render(request, 'template_view.html', context)
+    return render(request, 'all_deaths.html', context)
 
 
 

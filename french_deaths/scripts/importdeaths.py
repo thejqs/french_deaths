@@ -3,6 +3,7 @@
 import csv
 import os
 import sys
+import re
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "french_deaths.settings")
 
@@ -25,13 +26,21 @@ french_deaths_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fr
 
 csv_file = open(french_deaths_csv, 'r')
 
+# parens_csv = csv_file.read()
+# # print parens_csv
+
+# no_parens_csv = re.sub(r'\(.*?\)', '', parens_csv)
+# print no_parens_csv
+
 reader = csv.DictReader(csv_file)
 
-# Morir.objects.all().delete()
-# MorirCause.objects.all().delete()
+Morir.objects.all().delete()
+MorirCause.objects.all().delete()
 
 for row in reader:
-    new_cause, created = MorirCause.objects.get_or_create(cause=row["ICD10"])
+    # print row.keys()
+    cause = re.sub(r'\(.*?\)', '', row["ICD10"])
+    new_cause, created = MorirCause.objects.get_or_create(cause=cause)
     new_cause.save()
 
     new_death, created = Morir.objects.get_or_create(

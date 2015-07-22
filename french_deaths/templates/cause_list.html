@@ -1,5 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+<head>
+<title>A list of deaths</title>
+
+{% block body %}
+    
 {% for cause in cause_list %}
         {{ cause }}
         </br>
 
 {% endfor %}
+
+{% endblock %}
