@@ -1,4 +1,5 @@
 $('.cause').click(function(e) {
+    e.preventDefault();
     console.log($(this));
     console.log($(this).children());
     if ($(this).next().next().is(":visible")) {
