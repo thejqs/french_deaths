@@ -1,29 +1,17 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/french_deaths.css' %}">
+</head>
 
-        <div class="container">
-                    {% block body %}
+<body>
+  
 
-                        <!-- amCharts javascript sources -->
-                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
+          {% block body %}
 
-                        <!-- amCharts javascript code -->
-                        <script type="text/javascript"></script>
-                    
-
-
-                    <script src="../static/js/all_chart.js"></script>
-
-
-
-
-                <div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div>
-                    </br>
-
-
+                    <div class="container">
+        
                       <div id="#back-to-top">
               
                           <div class="row">
@@ -31,12 +19,10 @@
               
                                 {% for cause, number in death_types.items %}
                                       {% if "All" not in cause  %}
-                                                    <div id="cause"><h3><b>{{ cause }}</b></h3></div>
+                                                    <a id="cause" href="#"><h3><b>{{ cause }}</b></h3></a>
                                                     </br>   
-                                      </div><!-- end of column -->                                      
-                                    </div><!-- end of row -->
-                                            <div class="revealdeaths col-md-6">
                                                         
+                                                        <div id="revealdeaths">
                                                         {% for digit in number.all_deaths %}                                            
                                                                  {%  if digit.sex == "Females" %}
 
@@ -50,12 +36,10 @@
                                                                   {% endif %}
 
                                                         {% endfor %} 
-                                                                    <div class="revealdeaths"><p>Total deaths of females in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_females }}</b></p></div>
-                                                            </div><!-- end of column -->
-                                            
+                                                                    <p>Total deaths of females in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_females }}</b></p>
+                                                          
 
-                                                            <div class="revealdeaths" class="col-md-6">
-                                         
+                                                           
                                                                     {% for digit in number.all_deaths %}
                         
                                                                         {% if digit.sex == "Males" %}
@@ -72,23 +56,23 @@
 
                                                                  {% endfor %} 
 
-                                                                           <div class="revealdeaths"><p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p></div>
+                                                                           <p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p>
                                                                           </br>
-                                                            </div> <!--end of column -->
-                                              </div><!-- end for row -->
-
-                                        
-                                      <div class="row">
-                                          <div class="col-md-12">
-                                              <div class="revealdeaths">
-                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.death_total }}</b></h4></div>
-                                          </div><!-- end of column -->
+                                                       
+                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.death_total }}</b></h4>
+                                          </div>
                                       {% endif %}
-                                      </div><!-- end of row -->
+                                      </div>
                                       <hr>
-             
+             </div>
                                 {% endfor %}
 
                                 </br>
                                 <a href="#back-to-top" class="btn btn-info" role="button">Back to top?</a>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="{% static 'js/french_deaths.js' %}"></script>
+
+</body>
+
                         {% endblock %}

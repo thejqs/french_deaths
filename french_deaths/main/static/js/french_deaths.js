@@ -1,27 +1,29 @@
-function showDeaths() {
-    $('.revealdeaths').show();
-
-    $.ajax({
-            url: '/all_deaths/',
-            success: function(result) {
-                $('.revealdeaths').show();
-
-                $(result).each(function() {
-                    console.log(this);
-
-                    var causes = this.fields.year + " :: <b>" +
-                    this.fields.number_of_deaths + "</b> :: " +
-                    this.fields.sex + "</br"
+ var toggle = true
 
 
-                })
 
-                // $('#posts').html(result);
-            }
-        })
-}
+$('#cause').click(function(e) {
+    e.preventDefault;
+    console.log(toggle)
+
+    if (toggle) {
+            
+        $(this).next().fadeIn()
+        toggle = false
+        
+    } else {
+
+        $(this).next().fadeOut()
+        toggle = true
+        
+    };
+
+});
 
 
+// $('#cause').click(function() {
+//     $('#revealdeaths').hide()
+// });
 
 
 // $('#cause').mouseenter(
