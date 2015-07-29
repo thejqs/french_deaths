@@ -20,10 +20,10 @@
                                       {% if "All" not in cause  %}
                                             
               
-                                                    <a class="col-sm-offset-3 col-sm-6 cause" href="#"><h3><b>{{ cause }}</b></h3></a>
+                                                    <a class="col-sm-8 cause" href="#"><h3><b>{{ cause }}</b></h3></a>
                                                     </br>   
                                                         
-                                                      <div class="revealdeaths col-sm-offset-3 col-sm-6">
+                                                      <div class="revealdeaths col-sm-offset-2 col-sm-8">
                                                         {% for digit in number.all_deaths %}                                            
                                                                  {%  if digit.sex == "Females" %}
 
@@ -72,7 +72,7 @@
                                       
 
                                 {% endfor %}
-                                <a href="#back-to-top" id="end-button" class="btn btn-info col-sm-offset-3 col-sm-6" role="button">Back to top?</a>
+                                <a href="#back-to-top" id="end-button" class="btn btn-info col-sm-offset-5 col-sm-2" role="button">Back to top?</a>
                                 </div>
                                       </div>
 

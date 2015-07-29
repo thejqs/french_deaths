@@ -26,7 +26,7 @@
 
 
                         <div class="row">
-                        <div class="col-sm-offset-3 col-sm-6">
+                        <div class="col-sm-offset-2 col-sm-8">
                               {% for cause, number in death_types.items %}
 
                                 {% if "All" in cause %}
@@ -34,7 +34,7 @@
                                           </br>
 
                                     
-                                                        <div class="revealdeaths">
+                                                        <div class="revealdeaths col-sm-offset-2 col-sm-8">
                                                            {% for digit in number.all_deaths %}
                         
                                                                      {% if digit.sex == "Males" %}

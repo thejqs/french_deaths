@@ -1,7 +1,5 @@
 $('.cause').click(function(e) {
     e.preventDefault();
-    console.log($(this));
-    console.log($(this).children());
     if ($(this).next().next().is(":visible")) {
         $(this).next().next().fadeOut()
     } else {
@@ -39,12 +37,3 @@ $('.cause').click(function(e) {
 //     $(this).show()
 // });
 
-
-// $('#cause').mouseenter(
-//         function() {
-//                 this.show();
-//         },
-//         function() {
-//         $(this).hide();
-//         }
-// );
