@@ -11,18 +11,19 @@
           {% block body %}
 
                     <div class="container">
-        
+
                       <div id="#back-to-top">
               
-                          <div class="row">
-                            <div class="col-md-6">
-              
+                            <div class="row">
+                          
                                 {% for cause, number in death_types.items %}
                                       {% if "All" not in cause  %}
-                                                    <a id="cause" href="#"><h3><b>{{ cause }}</b></h3></a>
+                                            
+              
+                                                    <a class="col-sm-offset-3 col-sm-6 cause" href="#"><h3><b>{{ cause }}</b></h3></a>
                                                     </br>   
                                                         
-                                                        <div id="revealdeaths">
+                                                      <div class="revealdeaths col-sm-offset-3 col-sm-6">
                                                         {% for digit in number.all_deaths %}                                            
                                                                  {%  if digit.sex == "Females" %}
 
@@ -37,9 +38,10 @@
 
                                                         {% endfor %} 
                                                                     <p>Total deaths of females in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_females }}</b></p>
+                                                      
                                                           
 
-                                                           
+
                                                                     {% for digit in number.all_deaths %}
                         
                                                                         {% if digit.sex == "Males" %}
@@ -55,21 +57,30 @@
                                                                        {% endif %}
 
                                                                  {% endfor %} 
+                                                      
 
-                                                                           <p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p>
+
+                                                                  <p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p>
                                                                           </br>
                                                        
                                                              <h4>Total deaths in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.death_total }}</b></h4>
-                                          </div>
+                                                      </div>
+                                                    
+                                          
                                       {% endif %}
-                                      </div>
-                                      <hr>
-             </div>
+                                      
+                                      
+
                                 {% endfor %}
+                                <a href="#back-to-top" id="end-button" class="btn btn-info col-sm-offset-3 col-sm-6" role="button">Back to top?</a>
+                                </div>
+                                      </div>
 
-                                </br>
-                                <a href="#back-to-top" class="btn btn-info" role="button">Back to top?</a>
+                                </div>
 
+
+             </div>
+             </div>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="{% static 'js/french_deaths.js' %}"></script>
 

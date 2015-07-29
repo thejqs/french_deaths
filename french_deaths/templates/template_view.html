@@ -30,11 +30,11 @@
                               {% for cause, number in death_types.items %}
 
                                 {% if "All" in cause %}
-                                      <a id="cause" href="#"><h3><b>All causes of death</b></h3></a>
+                                      <a class="cause" href="#"><h3><b>All causes of death</b></h3></a>
                                           </br>
 
                                     
-                                                        <div id="revealdeaths">
+                                                        <div class="revealdeaths">
                                                            {% for digit in number.all_deaths %}
                         
                                                                      {% if digit.sex == "Males" %}

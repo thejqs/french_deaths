@@ -1,4 +1,4 @@
-#revealdeaths {
+.revealdeaths {
     display: none;
 }
 
@@ -8,19 +8,26 @@ body {
 
 
 
-#cause {
+.cause {
     color: #808080;
     width: 70%;
     margin: auto;
 }
 
 
-#revealdeaths {
+.revealdeaths {
+    color: #808080;
     width: 70%;
     margin: auto;
-/*    border-radius: 4px;
+    border-radius: 4px;
     border: 1px solid #eee;
-*/    font-size: 16px
+    font-size: 16px
+
+}
+
+
+#end-button {
+    background-color: #808080;
 }
 
 
