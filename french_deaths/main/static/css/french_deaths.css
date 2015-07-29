@@ -1,5 +1,5 @@
-.revealdeaths {
-    display: hide;
+#revealdeaths {
+    display: none;
 }
 
 body {
@@ -15,12 +15,7 @@ body {
 }
 
 
-.revealdeaths {
-    display: table;
-}
-
-
-.revealdeaths {
+#revealdeaths {
     width: 70%;
     margin: auto;
 /*    border-radius: 4px;

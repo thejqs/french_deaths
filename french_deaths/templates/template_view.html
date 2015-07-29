@@ -9,30 +9,32 @@
   <h1><big>French death</big>. <small>Not the plague. Just death.</small></h1>
 </div>
 
+ <link rel="stylesheet" type="text/css" href="{% static 'css/french_deaths.css' %}">
+
+</head>
 {% endblock head %}
 
+<body>
 
-                    {% block body %}
+{% block body %}
 
                     
- <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
-                        
-                        <script src="{% static 'js/all_chart.js' %}"></script>
+
 
                         <div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div>
                     </br>
 
 
                         <div class="row">
-                        <div class="col-md-6">
-                      {% for cause, number in death_types.items %}
+                        <div class="col-sm-offset-6 col-sm-3">
+                              {% for cause, number in death_types.items %}
 
                                 {% if "All" in cause %}
-                                      <h3><b>All causes of death</b></h3>
+                                      <div id="cause"><h3><b>All causes of death</b></h3></div>
                                           </br>
 
+                                    
+                                                        <div id="revealdeaths">
                                                            {% for digit in number.all_deaths %}
                         
                                                                      {% if digit.sex == "Males" %}
@@ -44,17 +46,14 @@
                                                                        {{ digit.sex }}
                                                                       </br>
 
-                                                                      {% endif %}
-                                                            </div><!-- end of column -->
-                                                          </div><!-- end of column-->
-                                                        {% endfor %}
+                                                                    {% endif %}
+                                                           {% endfor %}
+
                                                                       <p>Total deaths of males in France between 2001 and 2008 from all causes were: <b>{{ number.all_males }}</b></p>
                                                                           </br>
-                                      </div><!-- end of row -->
 
-<!--                                                            {#  <div class="col-md-6">
-                                                             #}    -->
-                                                                    {% for digit in number.all_deaths %}                                            
+
+                                                          {% for digit in number.all_deaths %}                                            
                                                                            {%  if digit.sex == "Females" %}
 
                                                                                 {{ digit.year }} ::
@@ -64,36 +63,43 @@
                                                                                 {{ digit.sex }}  
                                                                                 </br>
                                                             
-                                                                            </div><!-- end of column -->
-
+                                                                            
                                                                             {% endif %}
 
-                                                                   {% endfor %} 
+                                                          {% endfor %} 
+                                                    
 
-                                                                   <div class="row">
+
                                                                     <p>Total deaths of females in France between 2001 and 2008 from all causes were: <b>{{ number.all_females }}</b></p>
-                                                                    </div><!-- end of row -->
 
-                                                          <div class="row">
-                                                            <div class="col-md-12">
+
+
                                                              <h4>Total deaths in France between 2001 and 2008 from all causes were: <b>{{ number.death_total }}</b></h4>
 
 
-                                                             </div><!-- end of column -->
-                                                        
+                                                                                                              
                                         {% endif %}
                                         {% endfor %}
-                                        </div><!-- end of row -->
+                                        </div>
 
 
-                            </div><!-- end of container -->
+                            </div>
+        </div>
 
-        </div><!-- end of container -->
 
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
+                        
+    <script src="{% static 'js/all_chart.js' %}"></script>
+
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="{% static 'js/french_deaths.js' %}"></script>
 
 
                   {% endblock %}
-
+</body>
 
 
            
