@@ -6,5 +6,5 @@ def causes_menu(request):
     return {'causes_menu': causes_menu}
 
 
-def causes_processor(request):
-    return {'causes': MorirCause.objects.all()}
+# def causes_processor(request):
+#     return {'causes': MorirCause.objects.all()}

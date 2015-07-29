@@ -19,9 +19,6 @@ class Morir(models.Model):
     #     total_numbers = self.aggregate(Sum('number_of_deaths'))
     #     return total_numbers
 
-    def __unicode__(self):
-        return self.sex
-
     class Meta:
         verbose_name = 'French death'
         verbose_name_plural = 'French deaths'
@@ -34,17 +31,7 @@ class MorirCause(models.Model):
         return self.cause
 
     class Meta:
-        ordering = ['cause']
         verbose_name = 'Causes of French death'
         verbose_name_plural = 'Causes of French deaths'
 
 
-# class MorirSex(models.Model):
-#     sex = models.CharField(max_length=8, null=True)
-
-#     def __unicode__(self):
-#         return self.sex
-
-#     class Meta:
-#         verbose_name = 'Sex of French death'
-#         verbose_name_plural = 'Sex of French deaths'

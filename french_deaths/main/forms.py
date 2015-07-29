@@ -34,15 +34,14 @@ SEX_CHOICES = (
 
 
 class CauseSearchForm(forms.Form):
-    alphanumeric = RegexValidator(r'^[a-zA-Z\s]*$', 'Only alphanumeric characters are allowed.')
-    numeric = RegexValidator(r'^[2001-2008\d]*$', 'Please choose a year from 2001 to 2008.')
-
+    # alphanumeric = RegexValidator(r'^[a-zA-Z\s]*$', 'Only alphanumeric characters are allowed.')
+    # numeric = RegexValidator(r'^[2001-2008\d]*$', 'Please choose a year from 2001 to 2008.')
     cause = forms.ModelChoiceField(required=True,
                                                         queryset=MorirCause.objects.all(),
                                                         widget=forms.Select,
                                                         )
 
-    gender = forms.ChoiceField(required=False,
+    sex = forms.ChoiceField(required=False,
                                                 widget=forms.Select,
                                                 choices=SEX_CHOICES
                                                 )

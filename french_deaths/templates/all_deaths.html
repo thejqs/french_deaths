@@ -4,36 +4,54 @@
 
         <div class="container">
                     {% block body %}
+
+                        <!-- amCharts javascript sources -->
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+                  <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
+
+                        <!-- amCharts javascript code -->
+                        <script type="text/javascript"></script>
+                    <script src="../static/js/all_chart.js"></script>
+
+                                              
+
+
+                <div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div>
+                    </br>
+
+
                       <div id="#back-to-top">
+              
                           <div class="row">
                             <div class="col-md-6">
               
                                 {% for cause, number in death_types.items %}
                                       {% if "All" not in cause  %}
-                                                    <h3><b>{{ cause }}</b></h3>
+                                                    <div id="cause"><h3><b>{{ cause }}</b></h3></div>
                                                     </br>   
                                       </div><!-- end of column -->                                      
                                     </div><!-- end of row -->
-                                            <div class="col-md-6">
+                                            <div class="revealdeaths col-md-6">
                                                         
                                                         {% for digit in number.all_deaths %}                                            
                                                                  {%  if digit.sex == "Females" %}
 
-                                                                       {{ digit.year }} ::
+                                                                      {{ digit.year }} ::
 
                                                                        <b>{{ digit.number_of_deaths }}</b> ::
 
-                                                                      {{ digit.sex }}  
+                                                                      {{ digit.sex }} 
                                                                       </br>
 
                                                                   {% endif %}
 
                                                         {% endfor %} 
-                                                                    <p>Total deaths of females in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_females }}</b></p>
+                                                                    <div class="revealdeaths"><p>Total deaths of females in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_females }}</b></p></div>
                                                             </div><!-- end of column -->
                                             
 
-                                                            <div class ="col-md-6">
+                                                            <div class="revealdeaths" class="col-md-6">
                                          
                                                                     {% for digit in number.all_deaths %}
                         
@@ -51,17 +69,20 @@
 
                                                                  {% endfor %} 
 
-                                                                           <p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p>
+                                                                           <div class="revealdeaths"><p>Total deaths of males in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.all_males }}</b></p></div>
                                                                           </br>
                                                             </div> <!--end of column -->
+                                              </div><!-- end for row -->
 
                                         
                                       <div class="row">
                                           <div class="col-md-12">
-                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.death_total }}</b></h4>
+                                              <div class="revealdeaths">
+                                                             <h4>Total deaths in France between 2001 and 2008 from {{ cause | lower }} were: <b>{{ number.death_total }}</b></h4></div>
                                           </div><!-- end of column -->
                                       {% endif %}
                                       </div><!-- end of row -->
+                                      <hr>
              
                                 {% endfor %}
 

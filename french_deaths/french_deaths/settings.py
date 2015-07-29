@@ -56,7 +56,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
-    'main.context_processors.causes_processor',
+    # 'main.context_processors.causes_processor',
 )
 
 ROOT_URLCONF = 'french_deaths.urls'

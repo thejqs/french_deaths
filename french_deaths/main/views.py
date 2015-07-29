@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.db.models import Sum
 
+from collections import OrderedDict
+
 import re
 
 from django.views.generic.list import ListView
@@ -59,15 +61,16 @@ class CauseDetailView(DetailView):
 def cause_search(request):
     context = {}
     request_context = RequestContext(request)
+    # print request.method
     if request.method == 'POST':
-        form = CauseForm(request.POST)
+        form = CauseSearchForm(request.POST)
         context['form'] = form
-
         if form.is_valid():
             cause = form.cleaned_data['cause']
             sex = form.cleaned_data['sex']
             year = form.cleaned_data['year']
-            context['cause_list'] = Morir.objects.filter(cause__cause__startswith=cause, year=year, sex=sex)
+            context['cause_list'] = Morir.objects.filter(cause__cause=cause, year=year, sex=sex)
+            print context['cause_list'], cause
 
             context['valid'] = "Well done. Valid choice. But everyone's still dead."
             
@@ -119,7 +122,7 @@ def template_view(request):
 def all_deaths_view(request):
 
     context = {}
-    deaths_dict = {}    
+    deaths_dict = OrderedDict()
 
     death_types = MorirCause.objects.all().order_by('cause')
     # all_deaths = Morir.objects.all().order_by('year').reverse()
