@@ -70,7 +70,7 @@ def cause_search(request):
             sex = form.cleaned_data['sex']
             year = form.cleaned_data['year']
             context['cause_list'] = Morir.objects.filter(cause__cause=cause, year=year, sex=sex)
-            print context['cause_list'], cause
+            # print context['cause_list'], cause
 
             context['valid'] = "Well done. Valid choice. But everyone's still dead."
             
