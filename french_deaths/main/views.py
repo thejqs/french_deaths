@@ -69,6 +69,7 @@ def cause_search(request):
             cause = form.cleaned_data['cause']
             sex = form.cleaned_data['sex']
             year = form.cleaned_data['year']
+            
             context['cause_list'] = Morir.objects.filter(cause__cause=cause, year=year, sex=sex)
             # print context['cause_list'], cause
 
@@ -220,19 +221,6 @@ def first_view(request):
 
     return HttpResponse(deaths_list)
 
-
-    # text_string = ''
-
-    # deaths_list = []
-    # for death in deaths:
-    #     numbers = Morir.objects.order_by('number_of_deaths').reverse()
-    #     for number in numbers:
-    #         text_string += "%s</br>" % number.number_of_deaths
-
-    # return HttpResponse(text_string)
-
-    # for year in years:
-    #     if year == 2001
 
 
 
