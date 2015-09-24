@@ -6,11 +6,35 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
+.site-id {
+    font-family: "Helvetica";
+    font-size: 250%;
+    font-weight: bold;
+    margin-left: 10%;
+}
+
+.site-id a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav.navbar a {
+    color: #ffffff;
+}
 
 .cause {
     color: #808080;
     width: 70%;
     margin: auto;
+}
+
+.page-header {
+    border-bottom: none;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #ffffff;
+
 }
 
 
