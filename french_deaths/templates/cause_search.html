@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block body %}
+{% include 'top.html' %}
 
 <div class="row">
 <div class="col-md-10">
@@ -18,22 +19,19 @@
 
 </form>
 
-
 <div class="valid">
 <p>{{ valid }}</p>
 </div>
 
-
-
 <div class="cause-response">
 {% for cause in cause_list %}
-<a class="cause-response-link" href="/causes/{{cause.pk}}">
-<p>{{ cause.year }}</p>
-<p>{{ cause.sex }}</p>
-<p>{{ cause.cause }}</p>
-<p>{{ cause.number_of_deaths }}</p>
-</a>
+<p>{{ cause.cause }} ::
+{{ cause.year }} ::
+{{ cause.sex }}
+<h2 class="search-number">{{ cause.number_of_deaths }}</h2></p>
+
 </div>
+
     
 {% endfor %}
 

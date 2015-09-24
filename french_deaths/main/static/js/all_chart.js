@@ -36,7 +36,7 @@
                               "valueAxes": [
                                 {
                                   "id": "ValueAxis-1",
-                                  "title": "Axis title"
+                                  "title": "Number of deaths"
                                 }
                               ],
                               "allLabels": [],

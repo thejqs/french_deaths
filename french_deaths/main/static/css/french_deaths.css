@@ -28,13 +28,21 @@ body {
     margin: auto;
 }
 
+a .cause {
+    text-decoration: none;
+}
+
+.cause:hover {
+    color: #000;
+    text-decoration: none;
+}
+
 .page-header {
     border-bottom: none;
 }
 
 .navbar-inverse .navbar-nav>li>a {
     color: #ffffff;
-
 }
 
 
@@ -61,7 +69,7 @@ h1 {
     margin-top: 15%;
 }
 
-h2 {
+.page-header h2 {
     font-weight: bold;
     font-size: 200%;
     margin-left: 5%;
@@ -77,12 +85,10 @@ h2 {
 }
 
 .cause-response {
-    margin-left: 35%;
-    margin-top: 5%;
+    text-align: center;
     font-size: 150%;
     font-weight: bold;
     color: #000;
-    width: 50%;
 }
 
 .cause-response-link {
@@ -91,7 +97,7 @@ h2 {
 
 .valid {
     color: #808080;
-    margin-left: 35%;
+    text-align: center;
     margin-top: 5%;
     font-size: 125%;
 }
@@ -100,9 +106,79 @@ h2 {
     font-family: "Helvetica";
     font-weight: bold;
     font-size: 125%;
-    margin-top: 10%;
-    margin-left: 35%;
+    margin-top: 5%;
+    margin-left: 30%;
 }
+
+#back-to-top {
+    position: absolute;
+    top: -10%;
+}
+
+.men {
+    margin-left: 25%;
+    display: inline-block;
+    width: 20%;
+    margin-right: 3%;
+    float: left;
+}
+
+.women {
+    display: inline-block;
+    width: 20%;
+    float: left;
+}
+
+.row {
+    margin-left: 5%;
+    padding-bottom: 10%
+}
+
+.total {
+    color: #808080;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    display: block;
+    font-size: 250%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chartdiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin-bottom: 2%;
+}
+
+.women-total {
+    font-size: 125%;
+}
+
+.men-total {
+    font-size: 125%;
+}
+
+.number {
+    line-height: 70%;
+    font-size: 150%;
+}
+
+.cause-response p {
+    margin: 0;
+}
+
+.cause-response h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1750%;
+    margin: 0;
+    line-height: 90%;
+}
+
+
 
 /*#post-form textarea {
     height: 200px;

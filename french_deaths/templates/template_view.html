@@ -11,51 +11,57 @@
 <body>
 
 {% block body %}
-
+{% include 'top.html' %}
                     
 
 
                         <div id="chartdiv" style="width: 100%; height: 400px; background-color: #282828;" ></div>
-                    </br>
+
 
 
                         <div class="row">
-                        <div class="col-sm-offset-2 col-sm-8">
-                              {% for cause, number in death_types.items %}
+                             {% for cause, number in death_types.items %}
 
                                 {% if "All" in cause %}
-                                      <a class="cause" href="#"><h3><b>All causes of death</b></h3></a>
-                                          </br>
 
+
+                                                        <div class="total">
+                                                             <p>Total deaths in France between 2001 and 2008 from all causes: <b>{{ number.death_total }}</b></p>
+                                                        </div>
                                     
-                                                        <div class="revealdeaths col-sm-offset-2 col-sm-8">
+                                                        <div class="men">
                                                            {% for digit in number.all_deaths %}
                         
                                                                      {% if digit.sex == "Males" %}
 
+                                                                        <p>{{ digit.sex }} ::
+
                                                                         {{ digit.year }} ::
 
-                                                                       <b>{{ digit.number_of_deaths }}</b> ::
+                                                                       <b>{{ digit.number_of_deaths }}</b> ::</p>
 
-                                                                       {{ digit.sex }}
-                                                                      </br>
+                                                                      
 
                                                                     {% endif %}
                                                            {% endfor %}
 
-                                                                      <p>Total deaths of males in France between 2001 and 2008 from all causes were: <b>{{ number.all_males }}</b></p>
-                                                                          </br>
+                                                           <div class="men-total">
+                                                                      <p>Total deaths of males in France between 2001 and 2008 from all causes: 
+                                                                      <div class="number"><b>{{ number.all_males }}</b></p></div>
+                                                          </div>
+                                                          </div>
 
-
+                                                          <div class="women">
                                                           {% for digit in number.all_deaths %}                                            
                                                                            {%  if digit.sex == "Females" %}
 
+                                                                                <p>{{ digit.sex }} ::
+
                                                                                 {{ digit.year }} ::
 
-                                                                                <b>{{ digit.number_of_deaths }}</b> ::
+                                                                                <b>{{ digit.number_of_deaths }}</b> ::</p>
 
-                                                                                {{ digit.sex }}  
-                                                                                </br>
+                                                                              
                                                             
                                                                             
                                                                             {% endif %}
@@ -63,21 +69,26 @@
                                                           {% endfor %} 
                                                     
 
+                                                          <div class="women-total">
+                                                                    <p>Total deaths of females in France between 2001 and 2008 from all causes: 
+                                                                    <div class="number"><b>{{ number.all_females }}</b></p></div>
+                                                          </div>
 
-                                                                    <p>Total deaths of females in France between 2001 and 2008 from all causes were: <b>{{ number.all_females }}</b></p>
+                                                          </div>
+                                                          </div>
 
 
 
-                                                             <h4>Total deaths in France between 2001 and 2008 from all causes were: <b>{{ number.death_total }}</b></h4>
+
 
 
                                                                                                               
                                         {% endif %}
                                         {% endfor %}
-                                        </div>
+                                        {# </div> #}
 
 
-                            </div>
+
         </div>
 
 
