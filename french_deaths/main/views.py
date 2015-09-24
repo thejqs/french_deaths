@@ -39,6 +39,9 @@ from main.forms import CauseSearchForm
 #         context['cause_list'] = MorirCause.objects.filter(cause__startswith=cause, morir__year__startswith=year)
 #         return render_to_response('cause_search.html', context, context_instance=request_context)
 
+def home(request):
+    return render(request, 'home.html')
+
 
 class CauseListView(ListView):
     model = MorirCause

@@ -5,7 +5,7 @@
 
 <div class="row">
 <div class="col-md-10">
-<form method="POST" action="/cause_search/">
+<form method="POST" action="/cause-search/">
 
             {% csrf_token %}
 
@@ -39,7 +39,7 @@
 
 
 
-      <a href="/cause_detail/{{ cause.pk }}"> {{ cause.name }}</a>
+      <a href="/cause-detail/{{ cause.pk }}"> {{ cause.name }}</a>
         </br>
     </div>
     </div>
