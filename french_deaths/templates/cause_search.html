@@ -10,37 +10,36 @@
             {% csrf_token %}
 
 
-    
-{{ form.as_table }}
+<div class="search">   
+{{ form.as_p }}
 
 <input type="submit" method="post" value="Go ahead. Be morbid.">
+</div>
 
 </form>
 
-</br>
-</br>
 
-{{ valid }}
-
-</br>
-</br>
+<div class="valid">
+<p>{{ valid }}</p>
+</div>
 
 
+
+<div class="cause-response">
 {% for cause in cause_list %}
-<a href="/causes/{{cause.pk}}">
-{{ cause.year }}
-{{ cause.cause }}
-{{ cause.sex }}
-{{ cause.number_of_deaths }}
+<a class="cause-response-link" href="/causes/{{cause.pk}}">
+<p>{{ cause.year }}</p>
+<p>{{ cause.sex }}</p>
+<p>{{ cause.cause }}</p>
+<p>{{ cause.number_of_deaths }}</p>
 </a>
-</br>
+</div>
     
 {% endfor %}
 
 
 
-      <a href="/cause-detail/{{ cause.pk }}"> {{ cause.name }}</a>
-        </br>
+      <p><a href="/cause-detail/{{ cause.pk }}"> {{ cause.name }}</a></p>
     </div>
     </div>
     {% endblock %}
