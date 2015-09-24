@@ -26,13 +26,24 @@ body {
     color: #808080;
     width: 70%;
     margin: auto;
+    text-decoration: none;
 }
 
 a .cause {
     text-decoration: none;
+    color: #808080;
 }
 
-.cause:hover {
+b {
+    text-decoration: none;
+    color: #808080;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+b:hover {
     color: #000;
     text-decoration: none;
 }
