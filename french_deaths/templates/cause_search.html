@@ -24,16 +24,37 @@
 </div>
 
 <div class="cause-response">
+
+{% if not cause_list == "zero, silly" %}
+
 {% for cause in cause_list %}
-<p>{{ cause.cause }} ::
-{{ cause.year }} ::
-{{ cause.sex }}
-<h2 class="search-number">{{ cause.number_of_deaths }}</h2></p>
+
+    {% if not cause.number_of_deaths == 0 %}
+
+    <p>{{ cause.cause }} ::
+    {{ cause.year }} ::
+    {{ cause.sex }}
+    <h2 class="search-number">{{ cause.number_of_deaths }}</h2></p>
+
+    {% else %}
+
+    <h3>zero, silly.</h3>
+    <p class="search-zero">Seriously. Think about it.</p>
+
+    {% endif %}
+
+
+{% endfor %}
+
+ {% else %}
+
+    <h3>{{cause_list}}.</h3></p>
+
+    <p class="search-zero">Seriously. Think about it.</p>
+       
+    {% endif %}
 
 </div>
-
-    
-{% endfor %}
 
 
 

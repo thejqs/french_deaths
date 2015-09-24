@@ -64,7 +64,7 @@ class CauseDetailView(DetailView):
 def cause_search(request):
     context = {}
     request_context = RequestContext(request)
-    # print request.method
+    # print request_context
     if request.method == 'POST':
         form = CauseSearchForm(request.POST)
         context['form'] = form
@@ -72,12 +72,14 @@ def cause_search(request):
             cause = form.cleaned_data['cause']
             sex = form.cleaned_data['sex']
             year = form.cleaned_data['year']
-            
+
             context['cause_list'] = Morir.objects.filter(cause__cause=cause, year=year, sex=sex)
-            # print context['cause_list'], cause
+
+            if not context['cause_list']:
+                context['cause_list'] = "zero, silly"
 
             context['valid'] = "Well done. Valid choice. But everyone's still dead."
-            
+
             return render_to_response("cause_search.html", context, context_instance=request_context)
 
         else:
@@ -113,7 +115,7 @@ def template_view(request):
             (all_deaths_total_f['number_of_deaths__sum']) = 0
 
 
-        deaths_dict[death_type.cause] = {"all_deaths": all_deaths, 
+        deaths_dict[death_type.cause] = {"all_deaths": all_deaths,
                                                                 "death_total": all_deaths_total['number_of_deaths__sum'],
                                                                 "all_females": all_deaths_total_f['number_of_deaths__sum'],
                                                                 "all_males": all_deaths_total_m['number_of_deaths__sum']
