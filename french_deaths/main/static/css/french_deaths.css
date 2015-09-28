@@ -6,6 +6,11 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
+.subhead a {
+    text-decoration: none;
+    color: #808080;
+}
+
 .site-id {
     font-family: "Helvetica";
     font-size: 250%;
@@ -117,8 +122,7 @@ h1 {
     font-family: "Helvetica";
     font-weight: bold;
     font-size: 125%;
-    margin-top: 5%;
-    margin-left: 30%;
+    margin: auto;
 }
 
 #back-to-top {

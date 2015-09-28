@@ -5,19 +5,11 @@
 {% include 'top.html' %}
 
 <div class="row">
-<div class="col-md-10">
+<div class="col-sm-12">
 <form method="POST" action="/cause-search/">
 
             {% csrf_token %}
 
-
-<div class="search">   
-{{ form.as_p }}
-
-<input type="submit" method="post" value="Go ahead. Be morbid.">
-</div>
-
-</form>
 
 <div class="valid">
 <p>{{ valid }}</p>
@@ -56,10 +48,17 @@
 
 </div>
 
+<div class="search">   
+{{ form.as_p }}
+
+<input type="submit" method="post" value="Go ahead. Be morbid.">
+</div>
+
+</form>
+
+</div>
+</div>
 
 
-      <p><a href="/cause-detail/{{ cause.pk }}"> {{ cause.name }}</a></p>
-    </div>
-    </div>
     {% endblock %}
 
