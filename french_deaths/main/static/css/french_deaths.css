@@ -11,6 +11,10 @@ body {
     color: #808080;
 }
 
+.subhead a:hover {
+    color: #000;
+}
+
 .site-id {
     font-family: "Helvetica";
     font-size: 250%;
