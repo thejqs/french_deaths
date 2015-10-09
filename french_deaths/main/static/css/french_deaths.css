@@ -191,7 +191,7 @@ h1 {
 .cause-response h2 {
     text-align: center;
     font-weight: bold;
-    font-size: 1750%;
+    font-size: 1400%;
     margin: 0;
     line-height: 90%;
 }
@@ -199,13 +199,14 @@ h1 {
 .cause-response h3 {
     text-align: center;
     font-weight: bold;
-    font-size: 1200%;
+    font-size: 1100%;
     margin: 0;
     line-height: 90%;
 }
 
 .search-zero {
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 
