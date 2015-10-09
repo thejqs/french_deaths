@@ -25,7 +25,7 @@ with open(french_deaths_csv, 'r') as csv_file:
 
     for row in reader:
         cause = re.sub(r'\(.*?\)', '', row['ICD10'])
-        cause.replace(' excluding S00-T98', '')
+        cause = cause.replace(' excluding S00-T98', '')
         new_cause, created = MorirCause.objects.get_or_create(cause=cause)
         new_cause.save()
 
